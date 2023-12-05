@@ -7,4 +7,4 @@ class SubjectSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Subject
-        fields = ('name', 'preview', 'description', 'video')
+        fields = "__all__"

@@ -1,5 +1,6 @@
-from users.models import NULLABLE
 from django.db import models
+
+NULLABLE = {'blank': True, 'null': True}
 
 
 class Course(models.Model):
@@ -16,7 +17,7 @@ class Course(models.Model):
 
 
 class Subject(models.Model):
-    course = models.ForeignKey('Course', on_delete=models.CASCADE, **NULLABLE, verbose_name='название курса')
+    course = models.ForeignKey('Course', related_name='subject', on_delete=models.CASCADE, **NULLABLE, verbose_name='название курса')
     name = models.CharField(max_length=40, verbose_name='название урока')
     preview = models.ImageField(upload_to='project/', verbose_name='превью', **NULLABLE)
     description = models.TextField(max_length=150, verbose_name='описание', **NULLABLE)
