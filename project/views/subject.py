@@ -13,13 +13,13 @@ class SubjectCreateAPIView(generics.CreateAPIView):
 class SubjectListAPIView(generics.ListAPIView):
     serializer_class = SubjectSerializer
     queryset = Subject.objects.all()
-    permission_classes = [IsOwner]
+    permission_classes = [IsAuthenticated]
 
 
 class SubjectRetrieveAPIView(generics.RetrieveAPIView):
     serializer_class = SubjectSerializer
     queryset = Subject.objects.all()
-    permission_classes = [IsOwnerOrStaff]
+    permission_classes = [IsAuthenticated]
 
 
 class SubjectUpdateAPIView(generics.UpdateAPIView):

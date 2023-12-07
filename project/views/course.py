@@ -27,7 +27,7 @@ class CourseViewSet(ModelViewSet):
     def get_permissions(self):
 
         if self.action == 'list':
-            permission_classes = [IsOwnerOrStaff]
+            permission_classes = [IsAuthenticated]
         elif self.action == 'retrieve':
             permission_classes = [IsOwnerOrStaff]
         elif self.action == 'create':
