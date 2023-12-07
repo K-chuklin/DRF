@@ -2,6 +2,18 @@ from project.models import Course
 from rest_framework.serializers import ModelSerializer, IntegerField, SerializerMethodField
 
 
+class CourseSerializer(ModelSerializer):
+    class Meta:
+        model = Course
+        fields = '__all__'
+
+
+class CourseCreateSerializer(ModelSerializer):
+    class Meta:
+        model = Course
+        fields = ('name', 'preview', 'description')
+
+
 class CourseListSerializer(ModelSerializer):
 
     subject_count = IntegerField(source='subject_set.all.count', read_only=True)

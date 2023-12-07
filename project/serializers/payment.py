@@ -1,4 +1,4 @@
-from users.models import Payment
+from project.models import Payment
 from rest_framework.serializers import ModelSerializer
 
 

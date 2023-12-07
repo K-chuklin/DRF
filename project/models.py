@@ -1,4 +1,6 @@
 from django.db import models
+from users.models import User
+from django.utils import timezone
 
 NULLABLE = {'blank': True, 'null': True}
 
@@ -7,6 +9,7 @@ class Course(models.Model):
     name = models.CharField(max_length=40, verbose_name='название курса')
     preview = models.ImageField(upload_to='project/', verbose_name='превью', **NULLABLE)
     description = models.TextField(max_length=150, verbose_name='описание', **NULLABLE)
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='владелец', **NULLABLE)
 
     def __str__(self):
         return f'Курс: {self.name}'
@@ -29,3 +32,22 @@ class Subject(models.Model):
     class Meta:
         verbose_name = 'Урок'
         verbose_name_plural = 'Уроки'
+
+
+class Payment(models.Model):
+    METHODS = (
+        (1, 'transfer'),
+        (2, 'cash'),
+    )
+    user = models.ForeignKey(User, verbose_name='пользователь', on_delete=models.CASCADE)
+    payment_date = models.DateTimeField(default=timezone.now(), verbose_name='дата оплаты', **NULLABLE)
+    paid_course = models.ForeignKey(Course, default=None, verbose_name='оплаченный курс', on_delete=models.CASCADE)
+    payment_amount = models.IntegerField(default=None, verbose_name='сумма платежа')
+    payment_method = models.CharField(choices=METHODS, default=1)
+
+    def __str__(self):
+        return f'Платеж пользователя: {self.user} за курс: {self.paid_course} на сумму {self.payment_amount}'
+
+    class Meta:
+        verbose_name = 'Платеж'
+        verbose_name_plural = 'Платежи'
