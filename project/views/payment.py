@@ -2,7 +2,6 @@ from project.models import Payment
 from django_filters.rest_framework import OrderingFilter, DjangoFilterBackend
 from rest_framework.generics import ListAPIView, RetrieveAPIView
 from project.serializers.payment import PaymentListSerializer, PaymentDetailSerializer
-from rest_framework.permissions import IsAuthenticated
 from project.permissions import IsOwner, IsOwnerOrStaff
 
 

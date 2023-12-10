@@ -1,5 +1,12 @@
-from project.models import Course
+from project.models import Course, Subscription
 from rest_framework.serializers import ModelSerializer, IntegerField, SerializerMethodField
+
+
+class SubscriptionSerializer(ModelSerializer):
+
+    class Meta:
+        model = Subscription
+        fields = '__all__'
 
 
 class CourseSerializer(ModelSerializer):
@@ -16,11 +23,12 @@ class CourseCreateSerializer(ModelSerializer):
 
 class CourseListSerializer(ModelSerializer):
 
-    subject_count = IntegerField(source='subject_set.all.count', read_only=True)
+    subject_count = IntegerField(source='subject_set.all.count')
+    is_subscribed = IntegerField(source='subscription_set.all.count', read_only=True)
 
     class Meta:
         model = Course
-        fields = ("name", "subject_count")
+        fields = ("name", "subject_count", "is_subscribed")
 
 
 class CourseDetailSerializer(ModelSerializer):
@@ -37,6 +45,3 @@ class CourseDetailSerializer(ModelSerializer):
 
     def get_subject(self, course):
         return [subject.name for subject in course.subject.all()]
-
-
-
