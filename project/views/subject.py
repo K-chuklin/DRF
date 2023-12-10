@@ -6,8 +6,9 @@ from rest_framework.permissions import IsAuthenticated
 
 
 class SubjectCreateAPIView(generics.CreateAPIView):
+    # queryset = Subject.objects.all()
     serializer_class = SubjectSerializer
-    permission_classes = [IsOwner]
+    permission_classes = [IsOwnerOrStaff]
 
 
 class SubjectListAPIView(generics.ListAPIView):
@@ -30,4 +31,4 @@ class SubjectUpdateAPIView(generics.UpdateAPIView):
 
 class SubjectDestroyPIView(generics.DestroyAPIView):
     queryset = Subject.objects.all()
-    permission_classes = [IsOwner]
+    permission_classes = [IsOwnerOrStaff]

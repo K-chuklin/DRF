@@ -12,6 +12,7 @@ app_name = ProjectConfig.name
 router = DefaultRouter()
 router.register(r'course', CourseViewSet, basename='course')
 
+
 urlpatterns = [
     path('subject/create/', SubjectCreateAPIView.as_view(), name='subject-create'),
     path('subjects/', SubjectListAPIView.as_view(), name='subject-list'),
@@ -21,4 +22,5 @@ urlpatterns = [
 
     path('payment/', PaymentListAPIView.as_view(), name='payment_list'),
     path('payment/<int:pk>/', PaymentRetrieveAPIView.as_view(), name='payment_retrieve'),
+    # path('subscribe/<int:course_pk>/', SubscriptionCreateAPIView.as_view(), name='subscribe')
 ] + router.urls

@@ -21,6 +21,7 @@ class Course(models.Model):
 
 class Subject(models.Model):
     course = models.ForeignKey('Course', related_name='subject', on_delete=models.CASCADE, **NULLABLE, verbose_name='название курса')
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='владелец', **NULLABLE)
     name = models.CharField(max_length=40, verbose_name='название урока')
     preview = models.ImageField(upload_to='project/', verbose_name='превью', **NULLABLE)
     description = models.TextField(max_length=150, verbose_name='описание', **NULLABLE)
