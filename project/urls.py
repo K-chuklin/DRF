@@ -1,6 +1,6 @@
 from project.apps import ProjectConfig
 from rest_framework.routers import DefaultRouter
-from project.views.course import CourseViewSet
+from project.views.course import CourseViewSet, SubscriptionCreateAPIView
 from project.views.payment import PaymentListAPIView, PaymentRetrieveAPIView
 from project.views.subject import SubjectCreateAPIView, SubjectListAPIView, SubjectRetrieveAPIView, \
     SubjectUpdateAPIView, SubjectDestroyPIView
@@ -22,5 +22,5 @@ urlpatterns = [
 
     path('payment/', PaymentListAPIView.as_view(), name='payment_list'),
     path('payment/<int:pk>/', PaymentRetrieveAPIView.as_view(), name='payment_retrieve'),
-    # path('subscribe/<int:course_pk>/', SubscriptionCreateAPIView.as_view(), name='subscribe')
+    path('subscribe/<int:course_pk>/', SubscriptionCreateAPIView.as_view(), name='subscribe')
 ] + router.urls

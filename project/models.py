@@ -11,6 +11,7 @@ class Course(models.Model):
     description = models.TextField(max_length=150, verbose_name='описание', **NULLABLE)
     owner = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='владелец', **NULLABLE)
     price = models.IntegerField(default=1000, verbose_name='Цена курса', **NULLABLE)
+
     def __str__(self):
         return f'Курс: {self.name}'
 

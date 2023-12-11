@@ -13,10 +13,10 @@ class SubscriptionCreateAPIView(generics.CreateAPIView):
     serializer_class = SubscriptionSerializer
 
     def perform_create(self, serializer, *args, **kwargs):
-        subscription = serializer.save()  # получаю подписку
-        subscription.user = self.request.user  # сохраняю в базе юзера
-        course_pk = self.kwargs.get('pk')  # сохраняю pk
-        subscription.course = Course.objects.get(pk=course_pk)  # достаю нужную подписку
+        subscription = serializer.save()  # получаем данные подписки
+        subscription.user = self.request.user  # сохраняем данные о подписке в профиль пользователя
+        course_pk = self.kwargs.get('pk')  # сохраняем данные о подписке в профиль курс
+        subscription.course = Course.objects.get(pk=course_pk)  # получаем нужную подписку
         subscription.save()
 
 
@@ -30,11 +30,14 @@ class CourseViewSet(ModelViewSet):
     serializer_class = CourseSerializer
     queryset = Course.objects.all()
     permission_classes = [IsOwnerOrStaff]
-    serializers = {
-        'list': CourseListSerializer,
-        'retrieve': CourseDetailSerializer,
-        'create': CourseCreateSerializer
-    }
+
+    def get_serializer_class(self):
+        if self.action == 'list':
+            return CourseListSerializer
+        if self.action == 'retrieve':
+            return CourseDetailSerializer
+        if self.action == 'create':
+            return CourseCreateSerializer
 
     # Если пользователь - владелец, он может создавать курс
     def perform_create(self, serializer):

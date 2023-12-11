@@ -22,13 +22,15 @@ class CourseCreateSerializer(ModelSerializer):
 
 
 class CourseListSerializer(ModelSerializer):
-
-    subject_count = IntegerField(source='subject_set.all.count')
+    subject_count = SerializerMethodField()
     is_subscribed = IntegerField(source='subscription_set.all.count', read_only=True)
 
     class Meta:
         model = Course
-        fields = ("name", "subject_count", "is_subscribed")
+        fields = ("id", "name", "is_subscribed", "subject_count")
+
+    def get_subject_count(self, course):
+        return course.subject.count()
 
 
 class CourseDetailSerializer(ModelSerializer):
