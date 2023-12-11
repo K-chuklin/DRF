@@ -2,6 +2,7 @@ from rest_framework import generics
 from rest_framework.viewsets import ModelViewSet
 
 from project.models import Course, Subscription
+from project.paginators import VehiclePaginator
 from project.permissions import IsOwnerOrStaff, IsOwner
 from project.serializers.course import CourseDetailSerializer, CourseListSerializer, CourseSerializer, \
     CourseCreateSerializer, SubscriptionSerializer
@@ -12,6 +13,7 @@ class SubscriptionCreateAPIView(generics.CreateAPIView):
     queryset = Subscription.objects.all()
     serializer_class = SubscriptionSerializer
 
+    # Создаем и сохраняем подписку
     def perform_create(self, serializer, *args, **kwargs):
         subscription = serializer.save()  # получаем данные подписки
         subscription.user = self.request.user  # сохраняем данные о подписке в профиль пользователя
@@ -30,7 +32,9 @@ class CourseViewSet(ModelViewSet):
     serializer_class = CourseSerializer
     queryset = Course.objects.all()
     permission_classes = [IsOwnerOrStaff]
+    pagination_class = VehiclePaginator
 
+    # Переназначаем стандартные методы для ViewSet
     def get_serializer_class(self):
         if self.action == 'list':
             return CourseListSerializer

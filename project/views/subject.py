@@ -1,5 +1,6 @@
 from rest_framework import generics
 from project.models import Subject
+from project.paginators import VehiclePaginator
 from project.permissions import IsOwner, IsOwnerOrStaff
 from project.serializers.subject import SubjectSerializer
 from rest_framework.permissions import IsAuthenticated
@@ -15,6 +16,7 @@ class SubjectListAPIView(generics.ListAPIView):
     serializer_class = SubjectSerializer
     queryset = Subject.objects.all()
     permission_classes = [IsAuthenticated]
+    pagination_class = VehiclePaginator
 
 
 class SubjectRetrieveAPIView(generics.RetrieveAPIView):
