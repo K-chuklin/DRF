@@ -25,13 +25,12 @@ class SubscriptionCreateAPIView(generics.CreateAPIView):
 class SubscriptionDestroyAPIView(generics.DestroyAPIView):
     queryset = Subscription.objects.all()
     serializer_class = SubscriptionSerializer
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
 
 
 class CourseViewSet(ModelViewSet):
     serializer_class = CourseSerializer
     queryset = Course.objects.all()
-    permission_classes = [IsOwnerOrStaff]
     pagination_class = VehiclePaginator
 
     # Переназначаем стандартные методы для ViewSet
@@ -50,19 +49,19 @@ class CourseViewSet(ModelViewSet):
         new_course.save()
 
     # Фильтрация представлений по условиям
-    def get_permissions(self):
-
-        if self.action == 'list':
-            permission_classes = [IsAuthenticated]
-        elif self.action == 'retrieve':
-            permission_classes = [IsOwnerOrStaff]
-        elif self.action == 'create':
-            permission_classes = [IsOwner]
-        elif self.action == 'update':
-            permission_classes = [IsOwnerOrStaff]
-        elif self.action == 'destroy':
-            permission_classes = [IsOwner]
-        else:
-            permission_classes = [IsAuthenticated]
-        return [permission() for permission in permission_classes]
+    # def get_permissions(self):
+    #
+    #     if self.action == 'list':
+    #         permission_classes = [IsAuthenticated]
+    #     elif self.action == 'retrieve':
+    #         permission_classes = [IsOwnerOrStaff]
+    #     elif self.action == 'create':
+    #         permission_classes = [IsOwner]
+    #     elif self.action == 'update':
+    #         permission_classes = [IsOwnerOrStaff]
+    #     elif self.action == 'destroy':
+    #         permission_classes = [IsOwner]
+    #     else:
+    #         permission_classes = [IsAuthenticated]
+    #     return [permission() for permission in permission_classes]
 
