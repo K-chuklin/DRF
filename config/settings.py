@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'rest_framework_simplejwt',     # Добавили библиотеку в список установленных
+    'drf_yasg',     # Добавили библиотеку в список установленных
+    'rest_framework_simplejwt',
     'django_filters',
     'rest_framework',
     'users',

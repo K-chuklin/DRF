@@ -29,6 +29,8 @@ class SubscriptionDestroyAPIView(generics.DestroyAPIView):
 
 
 class CourseViewSet(ModelViewSet):
+    ''''''
+
     serializer_class = CourseSerializer
     queryset = Course.objects.all()
     pagination_class = VehiclePaginator
