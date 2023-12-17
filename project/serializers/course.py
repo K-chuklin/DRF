@@ -1,12 +1,5 @@
-from project.models import Course, Subscription
+from project.models import Course
 from rest_framework.serializers import ModelSerializer, IntegerField, SerializerMethodField
-
-
-class SubscriptionSerializer(ModelSerializer):
-
-    class Meta:
-        model = Subscription
-        fields = '__all__'
 
 
 class CourseSerializer(ModelSerializer):

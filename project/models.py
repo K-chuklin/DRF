@@ -1,6 +1,6 @@
 from django.db import models
 from users.models import User
-from django.utils import timezone
+from django.utils.timezone import now
 
 NULLABLE = {'blank': True, 'null': True}
 
@@ -41,11 +41,11 @@ class Payment(models.Model):
         (1, 'transfer'),
         (2, 'cash'),
     )
-    user = models.ForeignKey(User, verbose_name='пользователь', on_delete=models.CASCADE)
-    payment_date = models.DateTimeField(default=timezone.now(), verbose_name='дата оплаты', **NULLABLE)
-    paid_course = models.ForeignKey(Course, default=None, verbose_name='оплаченный курс', on_delete=models.CASCADE)
-    payment_amount = models.IntegerField(default=None, verbose_name='сумма платежа')
-    payment_method = models.CharField(choices=METHODS, default=1)
+    user = models.ForeignKey(User, verbose_name='пользователь', on_delete=models.CASCADE, **NULLABLE)
+    date = models.DateTimeField(default=now(), verbose_name='дата оплаты', **NULLABLE)
+    course = models.ForeignKey(Course, default=None, verbose_name='оплаченный курс', on_delete=models.CASCADE, **NULLABLE)
+    amount = models.IntegerField(default=1000, verbose_name='сумма платежа', **NULLABLE)
+    method = models.CharField(choices=METHODS, verbose_name='способ оплаты', default=1, **NULLABLE)
 
     def __str__(self):
         return f'Платеж пользователя: {self.user} за курс: {self.paid_course} на сумму {self.payment_amount}'
