@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'django_celery_beat',
     'drf_yasg',     # Добавили библиотеку в список установленных
     'rest_framework_simplejwt',
     'django_filters',

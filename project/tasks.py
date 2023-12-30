@@ -1,6 +1,6 @@
 import pytz
 from celery import shared_task
-from models import Course, Subscription
+from project.models import Course, Subscription
 from users.models import User
 import datetime
 
